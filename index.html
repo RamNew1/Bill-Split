@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Bill Split</title>
+</head>
+<body>
+    <h1>Split Bill</h1>
+    <hr>
+    <div class="container">
+        <div class="leftsec">
+            <h3>Bill</h3>
+            <input type="number" class="inputAmt" placeholder="Enter in Ruppee" oninput="bill()">
+            
+            <div class="tip-container">
+            <h3>Select Tip</h3>
+            <div class="tipPercent">
+                <button class="btn" disabled>5%</button>
+                <button class="btn" disabled>10%</button>
+                <button class="btn" disabled>15%</button>
+                <button class="btn" disabled>25%</button>
+                <button class="btn" disabled>50%</button>
+                <button class="btn" disabled>75%</button>
+            </div>
+            <input type="number" placeholder="Custom Tip" class="custom" disabled>
+            </div>
+            <h3>Number Of People</h3>
+            <input type="number" placeholder="No of People" class="pleCnt" disabled oninput="generates()"><br>
+            <input type="submit" value="Generate Bill" id="submit" class="submit" disabled onclick="billSplit()">
+        </div>
+        <div class="rightsec">
+            <div class="amountlist">
+                <label for="Tip-Amount">Tip Amount</label>
+                <p>₹<span class="tipamt"></span></p>
+                <lebel for="total">Total</lebel>
+                <p>₹<span class="totalamt"></span></p>
+                <label for="eachPerson">Each Person Bill</label>
+                <p>₹<span class="eachone"></span></p>
+            </div>
+            <input type="submit" value="Reset" id="reset" onclick="resetAll()" disabled>
+        </div>
+    </div>
+
+    <script>
+
+        let billAmount = document.querySelector('.inputAmt')
+        let tipButton = document.querySelectorAll('.btn')
+        let customTip = document.querySelector('.custom')
+        let peopleCount = document.querySelector('.pleCnt')
+        let generate = document.getElementById('submit')
+
+        let tipAmount = document.querySelector('.tipamt')
+        let totalAmount = document.querySelector('.totalamt')
+        let eachAmount = document.querySelector('.eachone')
+        let reset = document.querySelector('#reset')
+
+        let billValue = billAmount.value;
+        let tip = 0;
+        let people = peopleCount.value;
+
+
+        function bill(){
+            billValue = billAmount.value;
+            tip = 0;
+            people = peopleCount.value;
+            tipButton.forEach((btn)=> {
+            if(billValue > ""){
+                customTip.disabled = false;
+                btn.classList.add('true');
+                btn.disabled = false;
+                peopleCount.disabled = false;
+                
+                
+            }else{
+                customTip.disabled = true;
+                btn.classList.remove('true');
+                btn.disabled = true;
+                peopleCount.disabled = true;
+                generate.disabled = true;
+               
+            }
+        });
+        generates();
+    }
+        function generates(){
+            billValue = billAmount.value;
+            tip
+            people = peopleCount.value;
+            selectTip()
+            if(billValue>"" && tip > 0 && people > ""){
+                generate.disabled = false;          
+                console.log(billValue , tip , people);
+            }else{
+                generate.disabled = true;
+            }
+            
+        }
+        function selectTip(){
+            tipButton.forEach((btn) =>{
+                btn.addEventListener('click' , (e)=>{
+                    tipButton.forEach((btn)=>{
+                        btn.classList.remove('button-active');
+                    });
+                    let btnValue = parseFloat(e.target.textContent);
+                    tip = btnValue;
+                    e.target.classList.add('button-active');
+                    customTip.value = '';
+                    if(customTip.value > ''){
+                        e.target.classList.remove('button-active')
+                    }
+                });
+                
+                
+                    let custom=parseFloat(customTip.value);
+                    if(custom > 0){  
+                        tip = custom;
+                        tipButton.forEach((btn) =>{
+                        btn.classList.remove('button-active');                       
+                    });
+                    console.log(tip);
+                    }              
+                return tip;    
+            });
+            
+        }
+
+        function billSplit() {
+            tipAmount.innerHTML = (tip/100)*billValue;
+            totalAmount.innerHTML = Number(billValue);
+            eachAmount.innerHTML = ((Number(tipAmount.innerHTML)+Number(billValue))/people).toFixed(2);
+            reset.disabled = false;
+            console.log(tipAmount.innerHTML , totalAmount.innerHTML , eachAmount.innerHTML);
+        }
+        function resetAll(){  
+            billAmount.value = "";
+            bill();
+
+            customTip.value = "";
+            peopleCount.value="";
+            generate.disabled=true;
+            generates()
+            reset.disabled = true;
+            tipAmount.innerHTML = "";
+            totalAmount.innerHTML = "";
+            eachAmount.innerHTML = "";
+        }
+    </script>
+</body>
+</html>

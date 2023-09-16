@@ -1,0 +1,78 @@
+body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+hr{
+  border: 2px solid grey;
+  width: 100%;
+  margin-bottom: 50px;
+}
+.container{
+  display: flex;
+  width: 35%;
+  margin: 0px;
+  box-shadow: 0px 1px 11px 3px gray;
+}
+.leftsec{
+  border-radius: 20px 0px 0px 20px;
+  background: blue;
+  width: 50%;
+  padding: 15px
+}
+.rightsec{
+  background: cyan;
+  width: 50%;
+  border-radius: 0px 20px 20px 0px;
+}
+h3{
+  color: cyan;
+  font-size: 25px;
+  margin: 10px 5px;
+}
+input{
+  border-radius: 5px;
+  padding: 5px 8px;
+  margin-left: 20px;
+}
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+}
+.true{
+  color: white;
+  background: violet;
+}
+.submit{
+  margin: 15px;
+  margin-left: 60px;
+  margin-right: 60px;
+  padding: 5px 8px;
+  border: none;
+  color: gray;
+}
+.submit.active{
+  color: white;
+  background: violet;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.tipPercent{
+  display: grid;
+  grid-template-rows: repeat(2, 50px);
+  grid-template-columns: repeat(3,50px);
+  row-gap: 15px;
+  column-gap: 15px;
+  font-size: 25px;
+  margin: 20px;
+}
+.amountlist{
+  font-size: 20px;
+  padding: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.button-active{
+  border: 2px solid orangered;
+}
